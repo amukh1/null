@@ -20,9 +20,9 @@ int main() {
     std::string input = "1+2*3";    
     antlr4::ANTLRInputStream inputStream(input);
     ExprLexer lexer(&inputStream);
-    // antlr4::CommonTokenStream tokens(&lexer);
-    // ExprParser parser(&tokens);
-    // antlr4::tree::ParseTree *tree = parser.prog();
-    // std::cout << tree->toStringTree(&parser) << std::endl;
+    antlr4::CommonTokenStream tokens(&lexer);
+    ExprParser parser(&tokens);
+    antlr4::tree::ParseTree *tree = parser.prog();
+    std::cout << tree->toStringTree(&parser) << std::endl;
     return 0;
 }
