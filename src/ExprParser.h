@@ -49,8 +49,8 @@ public:
     std::vector<antlr4::tree::TerminalNode *> NEWLINE();
     antlr4::tree::TerminalNode* NEWLINE(size_t i);
 
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
    
   };
 
@@ -64,8 +64,8 @@ public:
     std::vector<ExprContext *> expr();
     ExprContext* expr(size_t i);
 
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
    
   };
 

@@ -13,22 +13,27 @@
 // listener and visitor
 #include "ExprListener.h"
 
-#include "MyVisitor.h"
+#include "visitor.h"
 
 
+// class TreeShapeListener : public ExprListener {
+// public:
+//     void enterKey()
+// };
 
 int main() {
-    // antlr
-    std::string input = "1+2*3\n";    
-    antlr4::ANTLRInputStream inputStream(input);
+    std::ifstream stream;
+    stream.open("main.d");
+    if (!stream.good()) {
+        std::cerr << "Couldn't open file\n";
+        std::exit(1);
+    }
+    antlr4::ANTLRInputStream inputStream(stream);
     ExprLexer lexer(&inputStream);
     antlr4::CommonTokenStream tokens(&lexer);
     ExprParser parser(&tokens);
-    antlr4::tree::ParseTree *tree = parser.prog();
-    std::cout << tree->toStringTree(&parser) << std::endl;
+    antlr4::tree::ParseTree * tree = parser.prog();
 
     MyVisitor visitor;
     visitor.visit(tree);
-
-    return 0;
 }

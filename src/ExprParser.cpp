@@ -2,7 +2,7 @@
 // Generated from Expr.g4 by ANTLR 4.13.1
 
 
-#include "ExprVisitor.h"
+#include "ExprListener.h"
 
 #include "ExprParser.h"
 
@@ -147,12 +147,16 @@ size_t ExprParser::ProgContext::getRuleIndex() const {
   return ExprParser::RuleProg;
 }
 
+void ExprParser::ProgContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<ExprListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterProg(this);
+}
 
-std::any ExprParser::ProgContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<ExprVisitor*>(visitor))
-    return parserVisitor->visitProg(this);
-  else
-    return visitor->visitChildren(this);
+void ExprParser::ProgContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<ExprListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitProg(this);
 }
 
 ExprParser::ProgContext* ExprParser::prog() {
@@ -217,12 +221,16 @@ size_t ExprParser::ExprContext::getRuleIndex() const {
   return ExprParser::RuleExpr;
 }
 
+void ExprParser::ExprContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<ExprListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterExpr(this);
+}
 
-std::any ExprParser::ExprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<ExprVisitor*>(visitor))
-    return parserVisitor->visitExpr(this);
-  else
-    return visitor->visitChildren(this);
+void ExprParser::ExprContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<ExprListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitExpr(this);
 }
 
 

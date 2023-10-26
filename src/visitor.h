@@ -13,11 +13,9 @@
 // listener and visitor
 #include "ExprListener.h"
 #include "ExprBaseVisitor.h"
+#include "ExprVisitor.h"
 
-#include "MyVisitor.h"
-
-antlrcpp::Any MyVisitor::visitProg(ExprParser::ProgContext *ctx) {
-    std::cout << "visiting pasr program" << std::endl;
-    std::cout << ctx->getText() << std::endl;
-    return visitChildren(ctx);
-}
+class MyVisitor : public ExprVisitor {
+    std::any visitProg(ExprParser::ProgContext *ctx) override;
+    std::any visitExpr(ExprParser::ExprContext *ctx) override;
+};
