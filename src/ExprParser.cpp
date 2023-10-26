@@ -2,7 +2,7 @@
 // Generated from Expr.g4 by ANTLR 4.13.1
 
 
-#include "ExprListener.h"
+#include "ExprVisitor.h"
 
 #include "ExprParser.h"
 
@@ -58,16 +58,16 @@ void exprParserInitialize() {
       "", "'*'", "'/'", "'+'", "'-'", "'('", "')'"
     },
     std::vector<std::string>{
-      "", "", "", "", "", "", "", "WHITESPACE", "NEWLINE", "LITERAL"
+      "", "", "", "", "", "", "", "NEWLINE", "INT"
     }
   );
   static const int32_t serializedATNSegment[] = {
-  	4,1,9,32,2,0,7,0,2,1,7,1,1,0,1,0,1,0,5,0,8,8,0,10,0,12,0,11,9,0,1,1,1,
+  	4,1,8,32,2,0,7,0,2,1,7,1,1,0,1,0,1,0,5,0,8,8,0,10,0,12,0,11,9,0,1,1,1,
   	1,1,1,1,1,1,1,1,1,3,1,19,8,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,27,8,1,10,1,
   	12,1,30,9,1,1,1,0,1,2,2,0,2,0,2,1,0,1,2,1,0,3,4,33,0,9,1,0,0,0,2,18,1,
-  	0,0,0,4,5,3,2,1,0,5,6,5,8,0,0,6,8,1,0,0,0,7,4,1,0,0,0,8,11,1,0,0,0,9,
+  	0,0,0,4,5,3,2,1,0,5,6,5,7,0,0,6,8,1,0,0,0,7,4,1,0,0,0,8,11,1,0,0,0,9,
   	7,1,0,0,0,9,10,1,0,0,0,10,1,1,0,0,0,11,9,1,0,0,0,12,13,6,1,-1,0,13,19,
-  	5,9,0,0,14,15,5,5,0,0,15,16,3,2,1,0,16,17,5,6,0,0,17,19,1,0,0,0,18,12,
+  	5,8,0,0,14,15,5,5,0,0,15,16,3,2,1,0,16,17,5,6,0,0,17,19,1,0,0,0,18,12,
   	1,0,0,0,18,14,1,0,0,0,19,28,1,0,0,0,20,21,10,4,0,0,21,22,7,0,0,0,22,27,
   	3,2,1,5,23,24,10,3,0,0,24,25,7,1,0,0,25,27,3,2,1,4,26,20,1,0,0,0,26,23,
   	1,0,0,0,27,30,1,0,0,0,28,26,1,0,0,0,28,29,1,0,0,0,29,3,1,0,0,0,30,28,
@@ -147,16 +147,12 @@ size_t ExprParser::ProgContext::getRuleIndex() const {
   return ExprParser::RuleProg;
 }
 
-void ExprParser::ProgContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ExprListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterProg(this);
-}
 
-void ExprParser::ProgContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ExprListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitProg(this);
+std::any ExprParser::ProgContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<ExprVisitor*>(visitor))
+    return parserVisitor->visitProg(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 ExprParser::ProgContext* ExprParser::prog() {
@@ -178,7 +174,7 @@ ExprParser::ProgContext* ExprParser::prog() {
     _la = _input->LA(1);
     while (_la == ExprParser::T__4
 
-    || _la == ExprParser::LITERAL) {
+    || _la == ExprParser::INT) {
       setState(4);
       expr(0);
       setState(5);
@@ -204,8 +200,8 @@ ExprParser::ExprContext::ExprContext(ParserRuleContext *parent, size_t invokingS
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* ExprParser::ExprContext::LITERAL() {
-  return getToken(ExprParser::LITERAL, 0);
+tree::TerminalNode* ExprParser::ExprContext::INT() {
+  return getToken(ExprParser::INT, 0);
 }
 
 std::vector<ExprParser::ExprContext *> ExprParser::ExprContext::expr() {
@@ -221,16 +217,12 @@ size_t ExprParser::ExprContext::getRuleIndex() const {
   return ExprParser::RuleExpr;
 }
 
-void ExprParser::ExprContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ExprListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterExpr(this);
-}
 
-void ExprParser::ExprContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<ExprListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitExpr(this);
+std::any ExprParser::ExprContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<ExprVisitor*>(visitor))
+    return parserVisitor->visitExpr(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 
@@ -262,9 +254,9 @@ ExprParser::ExprContext* ExprParser::expr(int precedence) {
     setState(18);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
-      case ExprParser::LITERAL: {
+      case ExprParser::INT: {
         setState(13);
-        match(ExprParser::LITERAL);
+        match(ExprParser::INT);
         break;
       }
 
